@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 const resolveTenant = (request: NextRequest) => {
     const HOST = request.headers.get('host') || "";
@@ -13,8 +13,17 @@ const resolveTenant = (request: NextRequest) => {
 }
 
 export const middleware = (request: NextRequest) => {
-    request.headers.set('X-Tenant-Context', resolveTenant(request));
-    console.log('tenant bro: ', request.headers.get('X-Tenant-Context'))
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set(
+        "X-Tenant-Context",
+        resolveTenant(request)
+    );
+
+    return NextResponse.next({
+        request: {
+            headers: requestHeaders,
+        },
+    });
 }
 
 export const config = {
