@@ -9,5 +9,4 @@ api.interceptors.request.use(async (config) => {
     config.headers.set('X-Tenant-Context', tenantContext);
     
     return config;
-})
-
+});
