@@ -24,10 +24,8 @@ async function registerAction(
             const token = res.data.token;
             const subdomain = window.location.hostname.split(".")[0];
 
-            // ✅ Save token to cookie (accessible across subdomain pages)
             document.cookie = `auth_token=${token}; path=/; max-age=${60 * 60 * 24 * 7}; SameSite=Lax`;
 
-            // ✅ Redirect to dashboard on the same subdomain
             window.location.href = `http://${subdomain}.localhost:3000/dashboard`;
         }
 

@@ -26,9 +26,8 @@ const DashboardPage = () => {
     }, []);
 
     const handleLogout = () => {
-        // Clear auth cookie
         document.cookie = "auth_token=; path=/; max-age=0; SameSite=Lax";
-        window.location.href = "/register";
+        window.location.href = "/";
     };
 
     const formatDate = (iso: string) =>

@@ -24,7 +24,12 @@ export const Nav = () => {
 
             <div style={{ display: "flex", gap: 10 }}>
                 <Btn variant="ghost" onClick={() => { }} style={{ padding: "8px 16px", fontSize: "0.875rem" }}>Sign in</Btn>
-                <Btn onClick={() => { }} style={{ padding: "9px 20px", fontSize: "0.875rem" }}>Get started free</Btn>
+                <Btn
+                    onClick={() => (window.location.href = "/register-company")}
+                    style={{ padding: "9px 20px", fontSize: "0.875rem" }}
+                >
+                    Get started free
+                </Btn>
             </div>
         </nav>
     );
