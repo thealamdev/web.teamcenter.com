@@ -3,7 +3,8 @@
 import { G } from "@/app/page";
 import { Btn } from "@/components/utils/Btn";
 import { Input } from "@/components/utils/Input";
-import axios from "axios";
+import { api } from "@/lib/api";
+import { useRouter } from "next/navigation";
 import { useActionState, useState } from "react";
 
 type FormData = {
@@ -26,6 +27,8 @@ const RegisterCompanyPage = ({
     email: "",
     address: "",
   });
+
+  const router = useRouter();
 
   const slugify = (s: string) =>
     s
@@ -52,8 +55,13 @@ const RegisterCompanyPage = ({
         address: form.address,
       };
 
-      const res = await axios.post("/central/tenants/", finalData);
-      console.log(res);
+      const res = await api.post("/central/tenants/", finalData);
+      console.log("API Response:", res.data.token);
+      if (res.status === 201) {
+        const subdomain = res.data.tenant.id;
+
+        window.location.href = `http://${subdomain}.localhost:3000/register`;
+      }
       return { success: true, error: null };
     } catch (err) {
       return { success: false, error: "Something went wrong. Please try again." };
